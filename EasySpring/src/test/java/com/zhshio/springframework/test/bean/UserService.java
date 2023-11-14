@@ -1,4 +1,4 @@
-package com.zhshio.springframework.test.bean.UserService;
+package com.zhshio.springframework.test.bean;
 
 /**
  * @Auther: 张帅
