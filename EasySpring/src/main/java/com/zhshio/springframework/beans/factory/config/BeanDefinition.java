@@ -19,7 +19,4 @@ public class BeanDefinition {
         return beanClass;
     }
 
-    public void setBeanClass(Class beanClass) {
-        this.beanClass = beanClass;
-    }
 }

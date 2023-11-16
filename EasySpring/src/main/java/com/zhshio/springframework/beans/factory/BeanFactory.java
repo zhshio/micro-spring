@@ -1,5 +1,6 @@
 package com.zhshio.springframework.beans.factory;
 
+import com.zhshio.springframework.beans.BeansException;
 import com.zhshio.springframework.beans.factory.config.BeanDefinition;
 
 import java.util.Map;
@@ -14,4 +15,5 @@ import java.util.concurrent.ConcurrentHashMap;
 public interface BeanFactory {
     Object getBean(String name);
 
+    Object getBean(String name, Object... args) throws BeansException;
 }
