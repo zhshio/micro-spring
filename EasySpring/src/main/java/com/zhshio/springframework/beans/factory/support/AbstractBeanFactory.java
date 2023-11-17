@@ -10,6 +10,7 @@ import com.zhshio.springframework.beans.factory.config.BeanDefinition;
  * @Description: com.zhshio.springframework.beans.factory.support
  * @version: 1.0
  */
+
 public abstract class AbstractBeanFactory extends DefaultSingletonBeanRegistry implements BeanFactory {
 
     @Override
