@@ -6,7 +6,7 @@ package com.zhshio.springframework.beans.factory.config;
  * @Description: com.zhshio.springframework.beans.factory.config
  * @version: 1.0
  */
-public class ConfigurableBeanFactory {
+public interface ConfigurableBeanFactory {
 
     String SCOPE_SINGLETON = "singleton";
 

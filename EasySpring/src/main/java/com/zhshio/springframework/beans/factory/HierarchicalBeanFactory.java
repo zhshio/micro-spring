@@ -6,5 +6,5 @@ package com.zhshio.springframework.beans.factory;
  * @Description: com.zhshio.springframework.beans.factory
  * @version: 1.0
  */
-public class HierarchicalBeanFactory {
+public interface HierarchicalBeanFactory extends BeanFactory{
 }

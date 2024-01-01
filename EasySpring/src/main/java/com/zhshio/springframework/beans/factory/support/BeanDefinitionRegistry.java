@@ -9,7 +9,7 @@ import com.zhshio.springframework.beans.factory.config.BeanDefinition;
  * @version: 1.0
  */
 public interface BeanDefinitionRegistry {
-    public void registerBeanDefinition(String beanName, BeanDefinition beanDefinition);
+    void registerBeanDefinition(String beanName, BeanDefinition beanDefinition);
 
     boolean containsBeanDefinition(String beanName);
 }
