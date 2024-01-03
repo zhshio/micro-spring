@@ -11,4 +11,13 @@ public interface SingletonBeanRegistry {
 
     Object getSingleton(String beanName);
 
+    /**
+     * @description: 销毁单例对象
+     * @author: 张帅
+     * @date: 2024/1/3 21:42
+     * @param:
+     * @return:
+     **/
+
+    void destroySingletons();
 }

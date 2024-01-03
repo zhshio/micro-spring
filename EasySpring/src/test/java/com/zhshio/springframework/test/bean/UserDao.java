@@ -19,8 +19,8 @@ public class UserDao {
         hashMap.put("10003", "hhd");
     }
 
-    public String queryUserName(String uId) {
-        return hashMap.get(uId);
+    public String queryUserName(String id) {
+        return hashMap.get(id);
     }
 
 }

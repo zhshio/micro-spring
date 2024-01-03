@@ -6,6 +6,7 @@ import com.zhshio.springframework.beans.factory.config.BeanDefinition;
 import com.zhshio.springframework.beans.factory.config.BeanReference;
 import com.zhshio.springframework.beans.factory.support.DefaultListableBeanFactory;
 import com.zhshio.springframework.beans.factory.xml.XmlBeanDefinitionReader;
+import com.zhshio.springframework.context.support.ClassPathXmlApplicationContext;
 import com.zhshio.springframework.core.io.DefaultResourceLoader;
 import com.zhshio.springframework.core.io.Resource;
 import com.zhshio.springframework.test.bean.UserDao;
@@ -34,20 +35,18 @@ public class ApiTest {
         resourceLoader = new DefaultResourceLoader();
     }
 
+
     @Test
     public void test_xml() {
         // 1.初始化 BeanFactory
-        DefaultListableBeanFactory beanFactory = new DefaultListableBeanFactory();
+        ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:spring.xml");
 
-        // 2. 读取配置文件&注册Bean
-        XmlBeanDefinitionReader reader = new XmlBeanDefinitionReader(beanFactory);
-        reader.loadBeanDefinitions("classpath:spring.xml");
-
-        // 3. 获取Bean对象调用方法
-        UserService userService = (UserService) beanFactory.getBean("userService", UserService.class);
+        // 2. 获取Bean对象调用方法
+        UserService userService = applicationContext.getBean("userService", UserService.class);
         String result = userService.queryUserInfo();
         System.out.println("测试结果：" + result);
     }
+
 
 
     @Test

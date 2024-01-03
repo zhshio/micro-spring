@@ -9,5 +9,12 @@ import com.zhshio.springframework.beans.BeansException;
  * @version: 1.0
  */
 public interface ConfigurableApplicationContext extends ApplicationContext {
+    /**
+     * @description: 刷新容器
+     * @author: 张帅
+     * @date: 2024/1/3 20:12
+     * @param: []
+     * @return: []
+     **/
     void refresh() throws BeansException;
 }

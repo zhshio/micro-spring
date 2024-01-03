@@ -17,14 +17,9 @@ public class BeanDefinition {
     //补充属性值, 实现注入属性和依赖对象
     private PropertyValues propertyValues;
 
+    private String initMethodName;
 
-    public Class getBeanClass() {
-        return beanClass;
-    }
-
-    public PropertyValues getPropertyValues() {
-        return propertyValues;
-    }
+    private String destroyMethodName;
 
     public BeanDefinition(Class beanClass) {
         this.beanClass = beanClass;
@@ -36,4 +31,33 @@ public class BeanDefinition {
         this.beanClass = beanClass;
         this.propertyValues = propertyValues == null ? new PropertyValues(): propertyValues;
     }
+
+    public Class getBeanClass() {
+        return beanClass;
+    }
+
+    public PropertyValues getPropertyValues() {
+        return propertyValues;
+    }
+
+    public void setPropertyValues(PropertyValues propertyValues) {
+        this.propertyValues = propertyValues;
+    }
+
+    public String getInitMethodName() {
+        return initMethodName;
+    }
+
+    public void setInitMethodName(String initMethodName) {
+        this.initMethodName = initMethodName;
+    }
+
+    public String getDestroyMethodName() {
+        return destroyMethodName;
+    }
+
+    public void setDestroyMethodName(String destroyMethodName) {
+        this.destroyMethodName = destroyMethodName;
+    }
+
 }
