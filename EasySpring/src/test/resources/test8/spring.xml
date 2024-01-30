@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans>
 
-    <bean id="userDao" class="com.zhshio.springframework.test.bean.UserDao"
+    <bean id="userDao" class="com.zhshio.springframework.test8.bean.UserDao"
           init-method="initUserDao" destroy-method="destroyUserDao"/>
 
-    <bean id="userService" class="com.zhshio.springframework.test.bean.UserService">
+    <bean id="userService" class="com.zhshio.springframework.test8.bean.UserService">
         <property name="id" value="1"/>
         <property name="company" value="腾讯"/>
         <property name="location" value="深圳"/>
         <property name="userDao" ref="userDao"/>
     </bean>
 
-    <bean class="com.zhshio.springframework.test.common.MyBeanPostProcessor"/>
-    <bean class="com.zhshio.springframework.test.common.MyBeanFactoryPostProcessor"/>
+    <bean class="com.zhshio.springframework.test8.common.MyBeanPostProcessor"/>
+    <bean class="com.zhshio.springframework.test8.common.MyBeanFactoryPostProcessor"/>
 
 </beans>

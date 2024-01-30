@@ -90,6 +90,9 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
             String id = bean.getAttribute("id");
             String name = bean.getAttribute("name");
             String className = bean.getAttribute("class");
+            // 解析 "bean" 元素，获取 init-method、destroy-method 属性的值
+            String initMethod = bean.getAttribute("init-method");
+            String destroyMethod = bean.getAttribute("destroy-method");
 
             // 获取 Class 对象
             Class<?> clazz = Class.forName(className);
@@ -102,6 +105,10 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
 
             // 创建 BeanDefinition 对象，传入 Class 对象作为参数
             BeanDefinition beanDefinition = new BeanDefinition(clazz);
+
+            // 设置初始 销毁 方法到BeanDefinition
+            beanDefinition.setInitMethodName(initMethod);
+            beanDefinition.setDestroyMethodName(destroyMethod);
 
             // 遍历 "bean" 元素的子节点
             for (int j = 0; j < bean.getChildNodes().getLength(); j++) {

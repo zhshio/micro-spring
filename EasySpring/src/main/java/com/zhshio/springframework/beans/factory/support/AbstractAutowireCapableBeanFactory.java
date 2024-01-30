@@ -5,6 +5,7 @@ import cn.hutool.core.util.StrUtil;
 import com.zhshio.springframework.beans.BeansException;
 import com.zhshio.springframework.beans.PropertyValue;
 import com.zhshio.springframework.beans.PropertyValues;
+import com.zhshio.springframework.beans.factory.DisposableBean;
 import com.zhshio.springframework.beans.factory.InitializingBean;
 import com.zhshio.springframework.beans.factory.config.AutowireCapableBeanFactory;
 import com.zhshio.springframework.beans.factory.config.BeanDefinition;
@@ -29,10 +30,16 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
         Object bean = null;
         try {
             bean = createBeanInstance(beanDefinition, beanName, args);
+            // 给 Bean 填充属性
             applyPropertyValue(beanName, bean, beanDefinition);
+            // 执行 Bean 的初始化方法和 BeanPostProcessor 的前置和后置处理方法
+            bean = initializeBean(beanName, bean, beanDefinition);
+
         } catch (Exception e) {
             throw new BeansException("Instantiation of bean failed", e);
         }
+
+        registerDisposableBeanIfNessary(beanName, bean, beanDefinition);
 
         addSingleton(beanName, bean);
         return bean;
@@ -95,7 +102,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
             ((InitializingBean) bean).afterPropertiesSet();
         }
 
-        // 注解配置 init-method {判断是为了避免二次执行初始化}
+        // 注解配置 init-method (判断是为了避免二次执行初始化)
         String initMethodName = beanDefinition.getInitMethodName();
         if (StrUtil.isNotEmpty(initMethodName) && !(bean instanceof InitializingBean)) {
             Method initMethod = beanDefinition.getBeanClass().getMethod(initMethodName);
@@ -128,7 +135,11 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
         return result;
     }
 
-
+    protected void registerDisposableBeanIfNessary(String beanName, Object bean, BeanDefinition beanDefinition) {
+        if (bean instanceof DisposableBean || StrUtil.isNotEmpty(beanDefinition.getDestroyMethodName())) {
+            registerDisposableBean(beanName, new DisposableBeanAdapter(bean, beanName, beanDefinition));
+        }
+    }
 
 
     public InstantiationStrategy getInstantiationStrategy() {

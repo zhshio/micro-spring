@@ -43,7 +43,7 @@ public class DefaultSingletonBeanRegistry implements SingletonBeanRegistry {
             Object beanName = disposableBeanNames[i];
             DisposableBean disposableBean = disposableBeans.remove(beanName);
             try {
-                disposableBean.destory();
+                disposableBean.destroy();
             } catch (Exception e) {
                 throw new BeansException("Destroy method on bean with name '" + beanName + "' threw an exception", e);
             }

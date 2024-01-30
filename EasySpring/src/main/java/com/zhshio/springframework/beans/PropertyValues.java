@@ -23,6 +23,11 @@ public class PropertyValues {
     }
 
     public PropertyValue getPropertyValue(String propertyName) {
+
+//        return this.propertyValueList.stream()
+//                .filter(propertyValue -> propertyValue.getName().equals(propertyName))
+//                .findFirst()
+//                .orElse(null);
         for (PropertyValue propertyValue : this.propertyValueList) {
             if (propertyValue.getName().equals(propertyName)) {
                 return propertyValue;

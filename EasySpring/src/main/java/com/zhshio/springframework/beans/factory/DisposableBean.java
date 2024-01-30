@@ -6,7 +6,9 @@ package com.zhshio.springframework.beans.factory;
  * @Description: com.zhshio.springframework.beans.factory.xml
  * @version: 1.0
  */
+
+// 容器销毁 Bean的时候获得一次回调
 public interface DisposableBean {
 
-    void destory() throws Exception;
+    void destroy() throws Exception;
 }

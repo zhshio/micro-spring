@@ -11,14 +11,9 @@ package com.zhshio.springframework.beans.factory;/**
  * @time: 2024/1/3 22:06
  */
 
+// Bean 属性填充完成后调用
 public interface InitializingBean {
 
-    /**
-     * @description: Bean 处理了属性填充后调用
-     * @author: 张帅
-     * @date: 2024/1/3 22:07
-     * @param: []
-     * @return: []
-     **/
+
     void afterPropertiesSet() throws Exception;
 }
