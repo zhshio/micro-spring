@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans>
+
+    <bean id="userDao" class="com.zhshio.springframework.test9.bean.UserDao"
+          init-method="initUserDao" destroy-method="destroyUserDao"/>
+
+    <bean id="userService" class="com.zhshio.springframework.test9.bean.UserService">
+        <property name="id" value="1"/>
+        <property name="company" value="腾讯"/>
+        <property name="location" value="深圳"/>
+        <property name="userDao" ref="userDao"/>
+    </bean>
+
+</beans>

@@ -6,6 +6,7 @@ import com.zhshio.springframework.beans.factory.config.BeanDefinition;
 import com.zhshio.springframework.beans.factory.config.BeanPostProcessor;
 import com.zhshio.springframework.beans.factory.config.ConfigurableBeanFactory;
 import com.zhshio.springframework.context.ConfigurableApplicationContext;
+import com.zhshio.springframework.utils.ClassUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +19,8 @@ import java.util.List;
  */
 
 public abstract class AbstractBeanFactory extends DefaultSingletonBeanRegistry implements ConfigurableBeanFactory {
+
+    private ClassLoader beanClassLoader = ClassUtils.getDefaultClassLoader();
 
     private final List<BeanPostProcessor> beanPostProcessors = new ArrayList<>();
 
@@ -58,6 +61,10 @@ public abstract class AbstractBeanFactory extends DefaultSingletonBeanRegistry i
 
     public List<BeanPostProcessor> getBeanPostProcessors() {
         return this.beanPostProcessors;
+    }
+
+    public ClassLoader getBeanClassLoader() {
+        return this.beanClassLoader;
     }
 
 }

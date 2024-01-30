@@ -1,15 +1,10 @@
-package com.zhshio.springframework.test8;
+package com.zhshio.springframework.test9;
 
-import cn.hutool.core.io.IoUtil;
 import com.zhshio.springframework.context.support.ClassPathXmlApplicationContext;
 import com.zhshio.springframework.core.io.DefaultResourceLoader;
-import com.zhshio.springframework.core.io.Resource;
-import com.zhshio.springframework.test8.bean.UserService;
+import com.zhshio.springframework.test9.bean.UserService;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.io.IOException;
-import java.io.InputStream;
 
 
 /**
@@ -23,13 +18,15 @@ public class ApiTest {
     @Test
     public void test_xml() {
         // 1.初始化 BeanFactory
-        ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:test8/spring.xml");
+        ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:test9/spring.xml");
         applicationContext.registerShutdownHook();
 
         // 2. 获取Bean对象调用方法
         UserService userService = applicationContext.getBean("userService", UserService.class);
         String result = userService.queryUserInfo();
         System.out.println("测试结果：" + result);
+        System.out.println("ApplicationContextAware："+userService.getApplicationContext());
+        System.out.println("BeanFactoryAware："+userService.getBeanFactory());
     }
 
 }
