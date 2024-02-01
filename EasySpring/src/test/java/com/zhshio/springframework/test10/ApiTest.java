@@ -5,6 +5,8 @@ import com.zhshio.springframework.test10.bean.UserService;
 import org.openjdk.jol.info.ClassLayout;
 import org.junit.Test;
 
+import java.lang.reflect.Proxy;
+
 
 /**
  * @Auther: 张帅
