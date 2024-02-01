@@ -1,4 +1,4 @@
-package com.zhshio.springframework.test12.bean;
+package com.zhshio.springframework.test13.bean;
 
 import java.util.Random;
 
@@ -11,7 +11,7 @@ public class UserService implements IUserService {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        return "暴龙兽超级进化，1, 北京";
+        return "Shio，1，北京";
     }
 
     public String register(String userName) {

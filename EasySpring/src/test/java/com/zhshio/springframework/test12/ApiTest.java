@@ -22,6 +22,10 @@ import org.junit.Test;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
+import java.util.Deque;
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Stack;
 
 /**
  * @description:
@@ -60,6 +64,8 @@ public class ApiTest {
         IUserService proxy_cglib = (IUserService) new Cglib2AopProxy(advisedSupport).getProxy();
         // 测试调用
         System.out.println("测试结果：" + proxy_cglib.register("花花"));
+
+        Deque<Integer> stack = new LinkedList<>();
     }
 
     @Test
