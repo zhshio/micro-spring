@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans >
+
+    <bean class="com.zhshio.springframework.beans.factory.PropertyPlaceholderConfigurer">
+        <property name="location" value="classpath:test15/token.properties"/>
+    </bean>
+
+    <component-scan base-package="com.zhshio.springframework.test15.bean"/>
+
+</beans>

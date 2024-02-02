@@ -4,6 +4,7 @@ import com.zhshio.springframework.aop.*;
 import com.zhshio.springframework.aop.aspectj.AspectJExpressionPointcutAdvisor;
 import com.zhshio.springframework.aop.framework.ProxyFactory;
 import com.zhshio.springframework.beans.BeansException;
+import com.zhshio.springframework.beans.PropertyValues;
 import com.zhshio.springframework.beans.factory.BeanFactory;
 import com.zhshio.springframework.beans.factory.BeanFactoryAware;
 import com.zhshio.springframework.beans.factory.config.InstantiationAwareBeanPostProcessor;
@@ -17,7 +18,7 @@ import java.util.Collection;
  * @author: zs
  * @time: 2024/2/1 23:11
  */
-// DefaultAdvisorAutoProxyCreator
+
 public class DefaultAdvisorAutoProxyCreator implements InstantiationAwareBeanPostProcessor, BeanFactoryAware {
 
     private DefaultListableBeanFactory beanFactory;
@@ -71,6 +72,12 @@ public class DefaultAdvisorAutoProxyCreator implements InstantiationAwareBeanPos
     public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
         return bean;
     }
+
+    @Override
+    public PropertyValues postProcessPropertyValues(PropertyValues pvs, Object bean, String beanName) throws BeansException {
+        return pvs;
+    }
+
 
 }
 

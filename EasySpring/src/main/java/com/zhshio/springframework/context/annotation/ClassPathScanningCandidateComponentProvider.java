@@ -7,6 +7,7 @@ package com.zhshio.springframework.context.annotation;/**
 
 import cn.hutool.core.util.ClassUtil;
 import com.zhshio.springframework.beans.factory.config.BeanDefinition;
+import com.zhshio.springframework.context.stereotype.Component;
 
 import java.util.LinkedHashSet;
 import java.util.Set;

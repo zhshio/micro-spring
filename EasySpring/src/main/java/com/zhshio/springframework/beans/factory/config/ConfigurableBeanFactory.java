@@ -1,6 +1,7 @@
 package com.zhshio.springframework.beans.factory.config;
 
 import com.zhshio.springframework.beans.factory.HierarchicalBeanFactory;
+import com.zhshio.springframework.utils.StringValueResolver;
 
 /**
  * @Auther: 张帅
@@ -14,6 +15,14 @@ public interface ConfigurableBeanFactory extends HierarchicalBeanFactory, Single
 
     String SCOPE_PROTOTYPE = "prototype";
 
+
+
     void addBeanPostProcessor(BeanPostProcessor beanPostProcessor);
+
+    void destroySingletons();
+
+    void addEmbeddedValueResolver(StringValueResolver valueResolver);
+
+    String resolveEmbeddedValue(String value);
 
 }

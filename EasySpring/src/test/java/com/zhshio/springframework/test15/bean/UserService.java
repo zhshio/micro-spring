@@ -1,15 +1,22 @@
-package com.zhshio.springframework.test14.bean;
+package com.zhshio.springframework.test15.bean;
 
 
 
+import com.zhshio.springframework.beans.factory.annotation.Autowired;
+import com.zhshio.springframework.beans.factory.annotation.Value;
 import com.zhshio.springframework.context.stereotype.Component;
+
 import java.util.Random;
 
 
 @Component("userService")
 public class UserService implements IUserService {
 
+    @Value("${token}")
     private String token;
+
+    @Autowired
+    private UserDao userDao;
 
     public String queryUserInfo() {
         try {
@@ -17,7 +24,7 @@ public class UserService implements IUserService {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        return "Shio，1，北京";
+        return userDao.queryUserName("1") + "，" + token;
     }
 
     public String register(String userName) {
@@ -40,5 +47,13 @@ public class UserService implements IUserService {
 
     public void setToken(String token) {
         this.token = token;
+    }
+
+    public UserDao getUserDao() {
+        return userDao;
+    }
+
+    public void setUserDao(UserDao userDao) {
+        this.userDao = userDao;
     }
 }

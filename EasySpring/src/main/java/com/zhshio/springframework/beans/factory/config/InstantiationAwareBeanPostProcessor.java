@@ -6,6 +6,7 @@ package com.zhshio.springframework.beans.factory.config;/**
  */
 
 import com.zhshio.springframework.beans.BeansException;
+import com.zhshio.springframework.beans.PropertyValues;
 
 /**
  * @description:
@@ -16,4 +17,6 @@ import com.zhshio.springframework.beans.BeansException;
 public interface InstantiationAwareBeanPostProcessor extends BeanPostProcessor{
 
     Object postProcessBeforeInstantiation(Class<?> beanClass, String beanName) throws BeansException;
+
+    PropertyValues postProcessPropertyValues(PropertyValues pvs, Object bean, String beanName) throws BeansException;
 }

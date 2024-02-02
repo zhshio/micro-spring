@@ -6,8 +6,10 @@ package com.zhshio.springframework.context.annotation;/**
  */
 
 import cn.hutool.core.util.StrUtil;
+import com.zhshio.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor;
 import com.zhshio.springframework.beans.factory.config.BeanDefinition;
 import com.zhshio.springframework.beans.factory.support.BeanDefinitionRegistry;
+import com.zhshio.springframework.context.stereotype.Component;
 
 import java.util.Set;
 
@@ -36,6 +38,8 @@ public class ClassPathBeanDefinitionScanner extends ClassPathScanningCandidateCo
                 }
                 registry.registerBeanDefinition(determineBeanName(beanDefinition), beanDefinition);
             }
+            //
+            registry.registerBeanDefinition("com.zhshio.springframework.context.annotation.internalAutowiredAnnotationProcessor", new BeanDefinition(AutowiredAnnotationBeanPostProcessor.class));
         }
     }
 

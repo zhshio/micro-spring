@@ -19,7 +19,7 @@ public interface SingletonBeanRegistry {
      * @return:
      **/
 
-    void destroySingletons();
+
 
     void registerSingleton(String beanName, Object singletonObject);
 }
