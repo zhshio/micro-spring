@@ -1,18 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans>
 
-    <bean id="userService" class="com.zhshio.springframework.test13.bean.UserService"/>
+    <bean id="userService" class="com.zhshio.springframework.test16.bean.UserService">
+        <property name="token" value="zhshio.com"/>
+    </bean>
 
     <bean class="com.zhshio.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"/>
 
-    <bean id="beforeAdvice" class="com.zhshio.springframework.test13.bean.UserServiceBeforeAdvice"/>
+    <bean id="beforeAdvice" class="com.zhshio.springframework.test16.bean.UserServiceBeforeAdvice"/>
 
     <bean id="methodInterceptor" class="com.zhshio.springframework.aop.framework.adapter.MethodBeforeAdviceInterceptor">
         <property name="advice" ref="beforeAdvice"/>
     </bean>
 
     <bean id="pointcutAdvisor" class="com.zhshio.springframework.aop.aspectj.AspectJExpressionPointcutAdvisor">
-        <property name="expression" value="execution(* com.zhshio.springframework.test13.bean.IUserService.*(..))"/>
+        <property name="expression" value="execution(* com.zhshio.springframework.test16.bean.IUserService.*(..))"/>
         <property name="advice" ref="methodInterceptor"/>
     </bean>
 

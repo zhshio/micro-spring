@@ -5,6 +5,8 @@ package com.zhshio.springframework.aop;/**
  * @version: 1.0
  */
 
+import com.zhshio.springframework.utils.ClassUtils;
+
 /**
  * @description:
  * @author: zs
@@ -19,8 +21,10 @@ public class TargetSource {
         this.target = target;
     }
 
-    public Class<?>[] getTargetClass(){
-        return this.target.getClass().getInterfaces();
+    public Class<?>[] getTargetClass() {
+        Class<?> clazz = this.target.getClass();
+        clazz = ClassUtils.isCglibProxyClass(clazz) ? clazz.getSuperclass() : clazz;
+        return clazz.getInterfaces();
     }
 
     public Object getTarget() {
