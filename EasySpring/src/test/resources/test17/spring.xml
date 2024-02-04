@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans >
+
+    <bean id="husband" class="com.zhshio.springframework.test17.bean.Husband">
+        <property name="wife" ref="wife"/>
+    </bean>
+
+    <bean id="wife" class="com.zhshio.springframework.test17.bean.Wife">
+        <property name="husband" ref="husband"/>
+        <property name="mother" ref="husbandMother"/>
+    </bean>
+
+    <bean id="husbandMother" class="com.zhshio.springframework.test17.bean.HusbandMother"/>
+
+    <!-- AOP 配置，验证三级缓存 -->
+    <bean class="com.zhshio.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"/>
+
+    <bean id="beforeAdvice" class="com.zhshio.springframework.test17.bean.SpouseAdvice"/>
+
+    <bean id="methodInterceptor" class="com.zhshio.springframework.aop.framework.adapter.MethodBeforeAdviceInterceptor">
+        <property name="advice" ref="beforeAdvice"/>
+    </bean>
+
+    <bean id="pointcutAdvisor" class="com.zhshio.springframework.aop.aspectj.AspectJExpressionPointcutAdvisor">
+        <property name="expression" value="execution(* com.zhshio.springframework.test17.bean.Wife.*(..))"/>
+        <property name="advice" ref="methodInterceptor"/>
+    </bean>
+
+</beans>
