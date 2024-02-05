@@ -12,6 +12,7 @@ import com.zhshio.springframework.context.event.ApplicationEventMulticaster;
 import com.zhshio.springframework.context.event.ContextClosedEvent;
 import com.zhshio.springframework.context.event.ContextRefreshedEvent;
 import com.zhshio.springframework.context.event.SimpleApplicationEventMulticaster;
+import com.zhshio.springframework.core.convert.ConversionService;
 import com.zhshio.springframework.core.io.DefaultResourceLoader;
 
 import java.util.Collection;
@@ -46,11 +47,13 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader i
         initApplicationEventMulticaster();
         // 注册事件监听器
         registerListeners();
-        // 提前实例化单例 Bean对象
-        beanFactory.preInstantiateSingletons();
+
+        // 设置类型转化器, 提前实例化单例对象
+        finishBeanFactoryInitialization(beanFactory);
         // 发布容器刷新完成事件
         finishRefresh();
     }
+
 
     protected abstract void refreshBeanFactory() throws BeansException;
 
@@ -84,6 +87,18 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader i
     }
 
 
+    protected void finishBeanFactoryInitialization(ConfigurableListableBeanFactory beanFactory) {
+        // 设置类型转换器
+        if (beanFactory.containsBean("conversionService")) {
+            Object conversionService = beanFactory.getBean("conversionService");
+            if (conversionService instanceof ConversionService) {
+                beanFactory.setConversionService((ConversionService) conversionService);
+            }
+        }
+
+        // 提前实例化单例Bean对象
+        beanFactory.preInstantiateSingletons();
+    }
 
     @Override
     public void registerShutdownHook() {
@@ -128,6 +143,11 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader i
     @Override
     public <T> T getBean(Class<T> requiredType) throws BeansException {
         return getBeanFactory().getBean(requiredType);
+    }
+
+    @Override
+    public boolean containsBean(String name) {
+        return getBeanFactory().containsBean(name);
     }
 
     @Override

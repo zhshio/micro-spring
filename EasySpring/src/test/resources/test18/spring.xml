@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans >
+
+    <bean id="husband" class="com.zhshio.springframework.test18.bean.Husband">
+        <property name="wifiName" value="Shio's Wife"/>
+        <property name="marriageDate" value="2024-02-05"/>
+    </bean>
+
+    <bean id="conversionService" class="com.zhshio.springframework.context.support.ConversionServiceFactoryBean">
+        <property name="converters" ref="converters"/>
+    </bean>
+
+    <bean id="converters" class="com.zhshio.springframework.test18.converter.ConvertersFactoryBean"/>
+
+</beans>
