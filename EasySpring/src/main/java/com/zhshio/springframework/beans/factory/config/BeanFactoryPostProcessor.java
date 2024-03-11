@@ -10,15 +10,19 @@ import com.zhshio.springframework.beans.factory.ConfigurableListableBeanFactory;
  * @version: 1.0
  */
 
+/**
+ * BeanFactory后处理器接口。
+ * 提供在所有BeanDefinition加载完成后，但在实例化Bean对象之前，修改BeanDefinition属性的功能。
+ */
 public interface BeanFactoryPostProcessor {
 
     /**
-     * @description: 在所有 BeanDefinition 加载完成后, 实例化 Bean对象之前, 提供修改 BeanDefinition属性的机制
-     * @author: 张帅
-     * @date: 2024/1/3 20:05
-     * @param: [beanFactory]
-     * @return: [com.zhshio.springframework.beans.factory.ConfigurableListableBeanFactory]
-     **/
+     * 对BeanFactory进行后处理，允许修改BeanDefinition的属性。
+     *
+     * @param beanFactory 可配置的列表Bean工厂，提供对BeanDefinition的访问和修改能力。
+     * @throws BeansException 如果处理过程中发生错误。
+     */
     void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) throws BeansException;
 
 }
+

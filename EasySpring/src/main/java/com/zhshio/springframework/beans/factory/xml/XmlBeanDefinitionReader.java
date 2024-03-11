@@ -28,16 +28,38 @@ import java.util.List;
  * @Description: com.zhshio.springframework.beans.factory.xml
  * @version: 1.0
  */
+
+/**
+ * 该类是一个用于从XML文件中加载Bean定义的类，它继承了AbstractBeanDefinitionReader类。
+ * 它提供了多个构造函数，用于初始化Bean定义注册表和资源加载器。
+ */
 public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
 
+    /**
+     * 构造函数，初始化Bean定义注册表。
+     *
+     * @param registry Bean定义注册表，用于注册解析出的Bean定义。
+     */
     public XmlBeanDefinitionReader(BeanDefinitionRegistry registry) {
         super(registry);
     }
 
+    /**
+     * 构造函数，初始化Bean定义注册表和资源加载器。
+     *
+     * @param registry Bean定义注册表。
+     * @param resourceLoader 资源加载器，用于加载XML资源。
+     */
     public XmlBeanDefinitionReader(BeanDefinitionRegistry registry, ResourceLoader resourceLoader) {
         super(registry, resourceLoader);
     }
 
+    /**
+     * 从指定资源加载Bean定义。
+     *
+     * @param resource 资源，通常是一个XML文件。
+     * @throws BeansException 如果加载过程中发生错误。
+     */
     @Override
     public void loadBeanDefinitions(Resource resource) throws BeansException {
         try {
@@ -49,6 +71,12 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
         }
     }
 
+    /**
+     * 从多个指定资源加载Bean定义。
+     *
+     * @param resources 多个资源。
+     * @throws BeansException 如果加载过程中发生错误。
+     */
     @Override
     public void loadBeanDefinitions(Resource... resources) throws BeansException {
         for (Resource resource : resources) {
@@ -56,6 +84,12 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
         }
     }
 
+    /**
+     * 从指定位置加载Bean定义。
+     *
+     * @param location 资源位置，可以是一个文件路径或URL。
+     * @throws BeansException 如果加载过程中发生错误。
+     */
     @Override
     public void loadBeanDefinitions(String location) throws BeansException {
         ResourceLoader resourceLoader = getResourceLoader();
@@ -63,6 +97,12 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
         loadBeanDefinitions(resource);
     }
 
+    /**
+     * 从多个指定位置加载Bean定义。
+     *
+     * @param locations 多个资源位置。
+     * @throws BeansException 如果加载过程中发生错误。
+     */
     @Override
     public void loadBeanDefinitions(String... locations) throws BeansException {
         for (String location : locations) {
@@ -70,6 +110,13 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
         }
     }
 
+    /**
+     * 真正加载Bean定义的方法，从输入流解析XML文件并处理。
+     *
+     * @param inputStream 输入流，通常来自一个XML文件。
+     * @throws ClassNotFoundException 如果指定的类找不到。
+     * @throws DocumentException 如果解析XML文件出错。
+     */
     protected void doLoadBeanDefinitions(InputStream inputStream) throws ClassNotFoundException, DocumentException {
 
         SAXReader reader = new SAXReader();
@@ -88,7 +135,7 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
 
         List<Element> beanList = root.elements("bean");
         for (Element bean : beanList) {
-
+            // 解析bean元素，包括id、name、class等属性
             String id = bean.attributeValue("id");
             String name = bean.attributeValue("name");
             String className = bean.attributeValue("class");
@@ -96,14 +143,14 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
             String destroyMethodName = bean.attributeValue("destroy-method");
             String beanScope = bean.attributeValue("scope");
 
-            // 获取 Class, 方便获取类中的名称
+            // 获取类，用于创建BeanDefinition
             Class<?> clazz = Class.forName(className);
-            // 优先级 id > name
+            // 为Bean定义名称
             String beanName = StrUtil.isNotEmpty(id) ? id : name;
             if (StrUtil.isEmpty(beanName)) {
                 beanName = StrUtil.lowerFirst(clazz.getSimpleName());
             }
-            // 定义 Bean
+            // 创建BeanDefinition并设置初始化和销毁方法
             BeanDefinition beanDefinition = new BeanDefinition(clazz);
             beanDefinition.setInitMethodName(initMethod);
             beanDefinition.setDestroyMethodName(destroyMethodName);
@@ -112,29 +159,31 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
                 beanDefinition.setScope(beanScope);
             }
 
+            // 解析并设置bean的属性
             List<Element> propertyList = bean.elements("property");
-            // 读取属性并填充
             for (Element property : propertyList) {
-                // 解析标签: property
                 String attrName = property.attributeValue("name");
                 String attrValue = property.attributeValue("value");
                 String attrRef = property.attributeValue("ref");
-                // 获取属性值：引入对象, 值对象
                 Object value = StrUtil.isNotEmpty(attrRef) ? new BeanReference(attrRef) : attrValue;
-                // 创建属性信息
                 PropertyValue propertyValue = new PropertyValue(attrName, value);
                 beanDefinition.getPropertyValues().addPropertyValue(propertyValue);
             }
 
+            // 注册BeanDefinition
             if (getRegistry().containsBeanDefinition(beanName)) {
                 throw new BeansException("Duplicate beanName[" + beanName + "] is not allowed");
             }
-            // 注册 BeanDefinition
             getRegistry().registerBeanDefinition(beanName, beanDefinition);
         }
     }
 
 
+    /**
+     * 扫描指定包下的类，注册为BeanDefinition。
+     *
+     * @param scanPath 要扫描的包路径，可以是多个包。
+     */
     private void scanPackage(String scanPath) {
         String[] basePackages = StrUtil.splitToArray(scanPath, ',');
         ClassPathBeanDefinitionScanner scanner = new ClassPathBeanDefinitionScanner(getRegistry());

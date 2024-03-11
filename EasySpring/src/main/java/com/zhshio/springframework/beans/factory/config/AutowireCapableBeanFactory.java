@@ -12,20 +12,22 @@ import com.zhshio.springframework.beans.factory.BeanFactory;
 public interface AutowireCapableBeanFactory extends BeanFactory {
 
     /**
-     * @description: 执行 BeanPostProcessors 接口实现类的 postProcessBeforeInitialization
-     * @author: 张帅
-     * @date: 2024/1/3 21:25
-     * @param: [existingBean, name]
-     * @return: [java.lang.Object, java.lang.String]
+     * 在Bean初始化之前应用BeanPostProcessors接口实现类的postProcessBeforeInitialization方法。
+     *
+     * @param existingBean 将要被初始化的Bean实例。
+     * @param name Bean的名称。
+     * @return 经过BeanPostProcessors处理后的Bean实例，可能是原始Bean或其代理。
+     * @throws BeansException 如果处理过程中发生错误。
      **/
     Object applyBeanPostProcessorsBeforeInitialization(Object existingBean, String name) throws BeansException;
 
     /**
-     * @description: 执行 BeanPostProcessors 接口实现类的 postProcessorsAfterInitialization
-     * @author: 张帅
-     * @date: 2024/1/3 21:26
-     * @param: [existingBean, beanName]
-     * @return: [java.lang.Object, java.lang.String]
+     * 在Bean初始化之后应用BeanPostProcessors接口实现类的postProcessAfterInitialization方法。
+     *
+     * @param existingBean 已完成初始化的Bean实例。
+     * @param beanName Bean的名称。
+     * @return 经过BeanPostProcessors处理后的Bean实例，可能是原始Bean或其代理。
+     * @throws BeansException 如果处理过程中发生错误。
      **/
     Object applyBeanPostProcessorsAfterInitialization(Object existingBean, String beanName) throws BeansException;
 

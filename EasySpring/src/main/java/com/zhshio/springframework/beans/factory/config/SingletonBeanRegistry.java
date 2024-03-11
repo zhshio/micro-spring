@@ -7,19 +7,25 @@ package com.zhshio.springframework.beans.factory.config;
  * @version: 1.0
  */
 
+/**
+ * 单例bean注册表接口。
+ * 提供了对单例对象的注册和获取操作，用于管理应用中的单例对象。
+ */
 public interface SingletonBeanRegistry {
 
+    /**
+     * 获取指定名称的单例对象。
+     *
+     * @param beanName 要获取的bean的名称。
+     * @return 返回与beanName关联的单例对象，如果没有找到，则返回null。
+     */
     Object getSingleton(String beanName);
 
     /**
-     * @description: 销毁单例对象
-     * @author: 张帅
-     * @date: 2024/1/3 21:42
-     * @param:
-     * @return:
-     **/
-
-
-
+     * 注册一个单例对象。
+     *
+     * @param beanName 要注册的bean的名称。
+     * @param singletonObject 要注册的单例对象。
+     */
     void registerSingleton(String beanName, Object singletonObject);
 }

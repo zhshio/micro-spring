@@ -7,8 +7,17 @@ package com.zhshio.springframework.beans.factory;
  * @version: 1.0
  */
 
-// 容器销毁 Bean的时候获得一次回调
+/**
+ * DisposableBean接口定义了容器在销毁Bean时需要执行的操作。
+ * 它提供了一个方法，让Bean可以在其生命周期结束时进行一些必要的清理工作。
+ */
 public interface DisposableBean {
 
+    /**
+     * 销毁Bean实例的方法。当容器准备销毁一个Bean时，会调用此方法。
+     * 这个方法允许Bean执行任何必要的清理动作，比如关闭资源等。
+     *
+     * @throws Exception 如果在销毁Bean时发生错误，则抛出Exception。
+     */
     void destroy() throws Exception;
 }
