@@ -119,6 +119,13 @@ public class BeanDefinition {
     }
 
     /**
+     * 获取Bean的属性值。
+     */
+    public PropertyValues getPropertyValues() {
+        return propertyValues;
+    }
+
+    /**
      * 获取Bean的初始化方法名。
      *
      * @return Bean的初始化方法名
